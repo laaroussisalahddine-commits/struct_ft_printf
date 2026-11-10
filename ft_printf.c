@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 18:42:17 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/10 15:10:38 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/10 21:30:56 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,20 @@ void	parse_format(const char *str, int *i, t_format *fmt)
 		fmt->specifier = str[(*i)++];
 }
 
-int	ft_printf(const char *str, ...)
-{
-	va_list		args;
-	t_format	fmt;
-	int			count;
-	int			i;
+// int	ft_printf(const char *str, ...)
+// {
+// 	va_list		args;
+// 	t_format	fmt;
+// 	int			count;
+// 	int			i;
 
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] != '%')
-			count += printchar(str[i++;]);
-		if (str[i] == '%')
-			parse_format(str, &i, &fmt);
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		while (str[i] && str[i] != '%')
+// 			count += printchar(str[i++]);
+// 		if (str[i] == '%')
+// 			parse_format(str, &i, &fmt);
 		
-	}
-}
+// 	}
+// }

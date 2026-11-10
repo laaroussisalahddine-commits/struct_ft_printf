@@ -6,9 +6,11 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 13:56:11 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/10 15:27:31 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/10 21:36:14 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
 
 void	initial_format(t_format *fmt)
 {
@@ -24,7 +26,7 @@ void	initial_format(t_format *fmt)
 
 }
 
-void	ft_call(int len, char c);
+void	ft_call(int len, char c)
 {
 	while (len-- > 0)
 		write(1, &c, 1);
@@ -40,5 +42,5 @@ int		is_flags(char c)
 {
 	return (c == '-' || c == '0' 
 			||c == '#' ||c == '+' 
-			||c == ' ' )
+			||c == ' ' );
 }
