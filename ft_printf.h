@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:04 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/30 22:29:04 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:26:50 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,11 @@ int				ft_printf(const char *str, ...);
 
 /* bonus */
 int				print_hash(unsigned long n , int upper);
+
+/* helper */
+int				is_flags(char c);
+int				is_specifier(char s);
+void			initial_format(t_format *fmt);
+void			ft_call(int len);
 
 #endif
