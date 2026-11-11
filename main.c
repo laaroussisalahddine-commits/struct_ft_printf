@@ -2,42 +2,54 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
+
 int	main(void)
 {
 	t_format	fmt;
-	int			ret;
-	int			expected;
 	int			numbers[] = {42, -42, 0, 123, -123};
 	int			widths[] = {0, 2, 3, 5, 8};
 	int			i;
 	int			j;
+	int			k;
+	int			ret;
+	int			expected;
 
-	i = 0;
-	while (i < 5)
+	k = 0;
+	while (k < 3)
 	{
-		j = 0;
-		while (j < 5)
+		i = 0;
+		while (i < 5)
 		{
-			initial_format(&fmt);
-			fmt.zero = 1;
-			fmt.spaces = 1;
-			fmt.width = widths[j];
+			j = 0;
+			while (j < 5)
+			{
+				initial_format(&fmt);
+				fmt.width = widths[j];
+				fmt.zero = (k == 0 || k == 2);
+				fmt.plus = (k == 1 || k == 2);
 
-			printf("\n=== n=%d | width=%d ===\n",
-				numbers[i], widths[j]);
+				printf("\n=== zero=%d plus=%d n=%d width=%d ===\n",
+					fmt.zero, fmt.plus, numbers[i], widths[j]);
 
-			printf("Expected: |");
-			expected = printf("% 0*d", widths[j], numbers[i]);
-			printf("| (return=%d)\n", expected);
+				printf("Expected: |");
+				if (k == 0)
+					expected = printf("%0*d", widths[j], numbers[i]);
+				else if (k == 1)
+					expected = printf("%+*d", widths[j], numbers[i]);
+				else
+					expected = printf("%+0*d", widths[j], numbers[i]);
+				printf("| (return=%d)\n", expected);
 
-			printf("Yours:    |");
-			fflush(stdout);
-			ret = print_zero_plus(&fmt, numbers[i]);
-			printf("| (return=%d)\n", ret);
+				printf("Yours:    |");
+				fflush(stdout);
+				ret = ft_ze_pl(&fmt, numbers[i]);
+				printf("| (return=%d)\n", ret);
 
-			j++;
+				j++;
+			}
+			i++;
 		}
-		i++;
+		k++;
 	}
 	return (0);
 }

@@ -49,7 +49,7 @@ int				ft_printf(const char *str, ...);
 /* bonus */
 int				print_hash(unsigned long n , int upper);
 int				print_padding(t_format *fmt, long n);
-int				print_zero_plus(t_format *fmt, long n);
+int				ft_ze_pl(t_format *fmt, long n);
 
 /* helper */
 int				is_flags(char c);

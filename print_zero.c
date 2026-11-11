@@ -15,15 +15,27 @@
 static int		ft_print_zeroo(t_format *fmt, int len, long n)
 {
 	int	skip;
+	int count;
 
+	count = 0;
 	skip = 0;
 	if (n >= 0 && fmt->plus)
 		skip = fmt->width - len - 1;
 	else
 		skip = fmt->width - len;
-	ft_call(skip, '0');
+	if (fmt->plus && fmt->zero == 0 && fmt->width > len)
+	{
+		ft_call(skip, ' ');
+		printchar('+');
+	}
+	else
+	{
+		if ((fmt->plus && fmt->zero == 0) || (fmt->plus && fmt->zero))
+			count += printchar('+');
+		ft_call(skip, '0');
+	}
 	printdecimal(n);
-	return (skip + len);
+	return (skip + len + count);
 }
 
 static int		ft_add_minus(t_format *fmt, int len, long tmp)
@@ -33,21 +45,57 @@ static int		ft_add_minus(t_format *fmt, int len, long tmp)
 
 	count = 0;
 	skip = 0;
-	count += printchar('-');
-	if (tmp > 0 && fmt->plus)
-		skip = fmt->width - len - count;
+	skip = fmt->width - len - 1;
+	if (fmt->plus && fmt->zero == 0 && fmt->width > len - 1)
+	{
+		ft_call(skip, ' ');
+		count += printchar('-');
+	}
 	else
-		skip = fmt->width - len - count;
-	ft_call(skip, '0');
+	{
+		count += printchar('-');
+		ft_call(skip, '0');
+	}
 	printdecimal(tmp);
 	return (skip + len + count);
 }
 
-int	print_zero_plus(t_format *fmt, long n)
+static int	print_plus(t_format *fmt, long n)
 {
-	int		len_number;
-	int		count;
-	long	tmp;
+	int	len_number;
+	int	count;
+	long tmp;
+
+	if (n < 0)
+	{
+		tmp = -n;
+		len_number = lennumber(tmp);
+	}
+	else
+		len_number = lennumber(n);
+	count = 0;
+	if (n >= 0 && fmt-> plus && fmt->width > len_number)
+		count += ft_print_zeroo(fmt, len_number, n);
+	else if (n < 0 && fmt-> plus && fmt->width > len_number - 1)
+		count += ft_add_minus(fmt, len_number, tmp);
+	else
+	{
+		if (n >= 0)
+		{
+			count += printchar('+');
+			count += printdecimal(n);
+		}
+		else
+			printdecimal(n);
+	}
+	return (count);
+}
+
+static int	print_zero(t_format *fmt, long n)
+{
+	int	len_number;
+	int	count;
+	long tmp;
 
 	if (n < 0)
 	{
@@ -58,26 +106,25 @@ int	print_zero_plus(t_format *fmt, long n)
 		len_number = lennumber(n);
 	count = 0;
 	if (n >= 0 && fmt->width > len_number)
-	{
-		if (fmt->plus)
-		{
-			count += printchar('+');
-			count += ft_print_zeroo(fmt, len_number, n);
-		}
-		else
-			count += ft_print_zeroo(fmt, len_number, n);
-	}
+		count += ft_print_zeroo(fmt, len_number, n);
 	else if (n < 0 && fmt->width > len_number + 1)
 		count += ft_add_minus(fmt, len_number, tmp);
 	else
+		count += printdecimal(n);
+	return (count);
+}
+int	ft_ze_pl(t_format *fmt, long n)
+{
+	int	count;
+
+	count = 0;
+	if (fmt->zero || fmt->plus)
 	{
-		if (n >= 0)
-		{
-			count += printchar('+');
-			count += printdecimal(n);
-		}
+		if (fmt->plus)
+			count += print_plus(fmt, n);
+		
 		else
-			count += printdecimal(n);
+			count += print_zero(fmt, n);
 	}
 	return (count);
 }
