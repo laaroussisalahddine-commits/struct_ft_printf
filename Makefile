@@ -28,3 +28,6 @@ fclean : clean
 	$(RM) $(NAME)
 
 re : fclean all
+
+run : clean
+	$(CC) $(FLAGS) main.c libftprintf.a

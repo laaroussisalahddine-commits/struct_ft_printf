@@ -17,7 +17,7 @@ static int		ft_print_zeroo(t_format *fmt, int len, long n)
 	int	skip;
 
 	skip = 0;
-	if (fmt->plus)
+	if (n >= 0 && fmt->plus)
 		skip = fmt->width - len - 1;
 	else
 		skip = fmt->width - len;
@@ -34,8 +34,8 @@ static int		ft_add_minus(t_format *fmt, int len, long tmp)
 	count = 0;
 	skip = 0;
 	count += printchar('-');
-	if (fmt->plus && tmp > 0)
-		skip = fmt->width - len - count - 1;
+	if (tmp > 0 && fmt->plus)
+		skip = fmt->width - len - count;
 	else
 		skip = fmt->width - len - count;
 	ft_call(skip, '0');
@@ -46,7 +46,6 @@ static int		ft_add_minus(t_format *fmt, int len, long tmp)
 int	print_zero_plus(t_format *fmt, long n)
 {
 	int		len_number;
-	int		skip;
 	int		count;
 	long	tmp;
 
@@ -57,7 +56,6 @@ int	print_zero_plus(t_format *fmt, long n)
 	}
 	else
 		len_number = lennumber(n);
-	skip = 0;
 	count = 0;
 	if (n >= 0 && fmt->width > len_number)
 	{
@@ -73,7 +71,7 @@ int	print_zero_plus(t_format *fmt, long n)
 		count += ft_add_minus(fmt, len_number, tmp);
 	else
 	{
-		if (n > 0)
+		if (n >= 0)
 		{
 			count += printchar('+');
 			count += printdecimal(n);
