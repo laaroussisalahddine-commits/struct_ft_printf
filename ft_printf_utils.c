@@ -23,7 +23,6 @@ void	initial_format(t_format *fmt)
 	fmt->percision = 0;
 	fmt->has_percision = 0;
 	fmt->specifier = '\0';
-
 }
 
 void	ft_call(int len, char c)
@@ -32,15 +31,16 @@ void	ft_call(int len, char c)
 		write(1, &c, 1);
 }
 
-int		is_specifier(char s)
+int	is_specifier(char s)
 {
-	return(s == 'c' || s == 's' || s == 'd' 
-			|| s == 'i' || s == 'u' || s == 'p' 
-			|| s == 'x' || s == 'X' || s == '%');
+	return (s == 'c' || s == 's' || s == 'd'
+		|| s == 'i' || s == 'u' || s == 'p'
+		|| s == 'x' || s == 'X' || s == '%');
 }
-int		is_flags(char c)
+
+int	is_flags(char c)
 {
-	return (c == '-' || c == '0' 
-			||c == '#' ||c == '+' 
-			||c == ' ' );
+	return (c == '-' || c == '0'
+		||c == '#' || c == '+'
+		||c == ' ' );
 }

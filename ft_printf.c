@@ -12,9 +12,7 @@
 
 #include "ft_printf.h"
 
-//   👇
-// 	% + 0 8 . 3 d
-void	Flags(const char *str, int *i, t_format *fmt)
+void	flags(const char *str, int *i, t_format *fmt)
 {
 	while (is_flags(str[*i]))
 	{
@@ -37,7 +35,7 @@ void	parse_format(const char *str, int *i, t_format *fmt)
 	initial_format(fmt);
 	Flags(str, i, fmt);
 	while (str[*i] >= '0' && str[*i] <= '9')
-		fmt-> width = fmt->width * 10 + (str[(*i)++] - '0');
+		fmt->width = fmt->width * 10 + (str[(*i)++] - '0');
 	if (str[*i] == '.')
 	{
 		fmt -> has_percision = 1;
@@ -48,21 +46,3 @@ void	parse_format(const char *str, int *i, t_format *fmt)
 	if (is_specifier(str[*i]))
 		fmt->specifier = str[(*i)++];
 }
-
-// int	ft_printf(const char *str, ...)
-// {
-// 	va_list		args;
-// 	t_format	fmt;
-// 	int			count;
-// 	int			i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		while (str[i] && str[i] != '%')
-// 			count += printchar(str[i++]);
-// 		if (str[i] == '%')
-// 			parse_format(str, &i, &fmt);
-		
-// 	}
-// }

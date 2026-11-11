@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	print_hash(unsigned long n , int upper)
+int	print_hash(unsigned long n, int upper)
 {
 	int	count;
 
@@ -24,5 +24,5 @@ int	print_hash(unsigned long n , int upper)
 	}
 	count += printstring("0x");
 	printhex(n, upper);
-	return (count);	
+	return (count);
 }

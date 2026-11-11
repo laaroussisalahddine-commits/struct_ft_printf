@@ -12,21 +12,21 @@
 
 #include "ft_printf.h"
 
-static int		ft_print_zeroo(t_format *fmt, int len, long n)
+static int	print_positive_padded(t_format *fmt, int len, long n)
 {
 	int	skip;
-	int count;
+	int	count;
 
-	count = 0;
 	skip = 0;
 	if (n >= 0 && fmt->plus)
 		skip = fmt->width - len - 1;
 	else
 		skip = fmt->width - len;
+	count = 0;
 	if (fmt->plus && fmt->zero == 0 && fmt->width > len)
 	{
 		ft_call(skip, ' ');
-		printchar('+');
+		count += printchar('+');
 	}
 	else
 	{
@@ -38,14 +38,17 @@ static int		ft_print_zeroo(t_format *fmt, int len, long n)
 	return (skip + len + count);
 }
 
-static int		ft_add_minus(t_format *fmt, int len, long tmp)
+static int	print_negative_padded(t_format *fmt, int len, long tmp)
 {
 	int	skip;
 	int	count;
 
 	count = 0;
 	skip = 0;
-	skip = fmt->width - len - 1;
+	if (fmt->width <= len)
+		skip = fmt->width - len;
+	else
+		skip = fmt->width - len - 1;
 	if (fmt->plus && fmt->zero == 0 && fmt->width > len - 1)
 	{
 		ft_call(skip, ' ');
@@ -60,12 +63,12 @@ static int		ft_add_minus(t_format *fmt, int len, long tmp)
 	return (skip + len + count);
 }
 
-static int	print_plus(t_format *fmt, int len_number, long n, long tmp)
+static int	handle_plus_flag(t_format *fmt, int len_number, long n, long tmp)
 {
 	int	count;
 
 	count = 0;
-	if (n >= 0 && fmt-> plus && fmt->width > len_number)
+	if (n >= 0 && fmt->plus && fmt->width > len_number)
 		count += ft_print_zeroo(fmt, len_number, n);
 	else if (n < 0 && fmt-> plus && fmt->width > len_number - 1)
 		count += ft_add_minus(fmt, len_number, tmp);
@@ -77,12 +80,12 @@ static int	print_plus(t_format *fmt, int len_number, long n, long tmp)
 			count += printdecimal(n);
 		}
 		else
-			printdecimal(n);
+			count += printdecimal(n);
 	}
 	return (count);
 }
 
-static int	print_zero(t_format *fmt, int len_number, long n, long tmp)
+static int	handle_zero_flag(t_format *fmt, int len_number, long n, long tmp)
 {
 	int	count;
 
@@ -95,11 +98,12 @@ static int	print_zero(t_format *fmt, int len_number, long n, long tmp)
 		count += printdecimal(n);
 	return (count);
 }
+
 int	ft_ze_pl(t_format *fmt, long n)
 {
-	int	count;
-	int	len_number;
-	long tmp;
+	int		count;
+	int		len_number;
+	long	tmp;
 
 	if (n < 0)
 	{
@@ -113,7 +117,6 @@ int	ft_ze_pl(t_format *fmt, long n)
 	{
 		if (fmt->plus)
 			count += print_plus(fmt, len_number, n, tmp);
-		
 		else
 			count += print_zero(fmt, len_number, n, tmp);
 	}
