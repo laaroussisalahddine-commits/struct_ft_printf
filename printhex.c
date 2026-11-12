@@ -34,14 +34,23 @@ void	print_upper_hex(unsigned long n)
 
 int	printhex(unsigned int x, int upper)
 {
+	t_format fmt;
 	int				count;
 	unsigned long	n;
 
 	n = x;
 	count = lennumhex(n);
-	if (upper == 1)
+	if (fmt.hash && upper == 0)
+	{
+		if (n == 0)
+			return (printdecimal(0));
+		count += printstring("0x");
+		print_lower_hex(n);
+		return (count);
+	}
+	if (!fmt.hash && upper == 1)
 		print_upper_hex(n);
-	else if (upper == 0)
+	else if (!fmt.hash && upper == 0)
 		print_lower_hex(n);
 	else
 		return (-1);

@@ -20,10 +20,7 @@ int	printptr(void *ptr)
 	a = (long)ptr;
 	count = lennumhex(a);
 	if (!ptr)
-	{
-		printstring("(nil)");
-		return (5);
-	}
+		return (printstring("(nil)"));
 	count += printstring("0x");
 	printhex(a, 0);
 	return (count);

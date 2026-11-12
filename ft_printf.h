@@ -47,7 +47,6 @@ int				lennumber(long n);
 int				ft_printf(const char *str, ...);
 
 /* bonus */
-int				print_hash(unsigned long n, int upper);
 int				print_padding(t_format *fmt, long n);
 int				ft_ze_pl(t_format *fmt, long n);
 
