@@ -46,3 +46,57 @@ void	parse_format(const char *str, int *i, t_format *fmt)
 	if (is_specifier(str[*i]))
 		fmt->specifier = str[(*i)++];
 }
+
+int	print_format(va_list args, t_format *fmt, int *i)
+{
+	int	count;
+
+	count = 0;
+	if (fmt->specifier == 'c')
+		count += printchar(va_arg(args, int));
+	else if (fmt->specifier == 's')
+		count += printstring(va_arg(args, char *));
+	else if (fmt->specifier == 'd' || fmt->specifier == 'i')
+		count += printdecimal(va_arg(args, int));
+	else if (fmt->specifier == 'x')
+		count += printhex(va_arg(args, unsigned int), 0);
+	else if (fmt->specifier == 'X')
+		count += printhex(va_arg(args, unsigned int), 1);
+	else if (fmt->specifier == 'p')
+		count += printptr(va_arg(args, void *));
+	else if (fmt->specifier == 'u')
+		count += printuns(va_arg(args, unsigned int));
+	else if (fmt->specifier == '%')
+		count += printchar('%');
+	(*i)++;
+	return (count);
+}
+
+int	ft_printf(const char *str, ...)
+{
+	va_list	args;
+	t_format fmt;
+	int	count;
+	int	i;
+
+	if (!str || (str[0] == '%' && str[1] == '\0'))
+		return (-1);
+	va_start(args, str);
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		initial_format(&fmt);
+		while (str[i] && str[i] != '%')
+			count += printchar(str[i++]);
+		if (str[i] == '%')
+		{
+			i++;
+			while (is_flags(&fmt) || ft_isdigits(str[i]))
+				parse_format(str, &i, &fmt);
+			count += print_format(args, &fmt, &i);
+		}
+	}
+	va_end(args);
+	return (count);
+}

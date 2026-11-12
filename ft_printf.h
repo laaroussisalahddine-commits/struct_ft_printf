@@ -34,7 +34,7 @@ typedef struct s_format
 int				printdecimal(int x);
 int				printchar(char c);
 int				printstring(char *s);
-int				printuns(long x);
+int				printuns(unsigned int x);
 int				printhex(unsigned int n, int upper);
 int				printptr(void *ptr);
 

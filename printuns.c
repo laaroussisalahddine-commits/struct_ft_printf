@@ -12,13 +12,20 @@
 
 #include "ft_printf.h"
 
-int	printuns(long x)
+void	put_long(unsigned long n)
 {
+	if (n >= 10)
+		put_long(n / 10);
+	printchar((n % 10) + '0');
+}
+
+int	printuns(unsigned int x)
+{
+	unsigned long n;
 	int	count;
 
-	count = lennumber(x);
-	if (x >= 10)
-		printuns(x / 10);
-	printchar((x % 10) + '0');
+	n = x;
+	count = lennumber(n);
+	put_long(n);
 	return (count);
 }
