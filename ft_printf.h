@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:04 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/10 22:14:57 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 11:35:02 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ typedef struct s_format
 }		t_format;
 
 /* print format */
-int				printdecimal(int x);
-int				printchar(char c);
-int				printstring(char *s);
-int				printuns(unsigned int x);
-int				printhex(unsigned int n, int upper);
-int				printptr(void *ptr);
+int				printdecimal(t_format *fmt, int x);
+int				printchar(t_format *fmt, char c);
+int				printstring(t_format *fmt, char *s);
+int				printuns(t_format *fmt, unsigned int x);
+int				printhex(t_format *fmt, unsigned int n, int upper);
+int				printptr(t_format *fmt, void *ptr);
 
 /* count number */
 unsigned int	lennumhex(unsigned long n);
@@ -55,5 +55,6 @@ int				is_flags(char c);
 int				is_specifier(char s);
 void			initial_format(t_format *fmt);
 void			ft_call(int len, char c);
+int				ft_isdigit(int c);
 
 #endif

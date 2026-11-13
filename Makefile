@@ -6,7 +6,7 @@ RM = rm -f
 
 SRC = lenstring.c lennumber.c lennumhex.c \
 	printchar.c printstring.c printdecimal.c  printhex.c \
-	printptr.c printuns.c ft_printf.c print_hash.c \
+	printptr.c printuns.c ft_printf.c \
 	print_padding.c print_zero.c ft_printf_utils.c
 
 OBJ = $(SRC:.c=.o)

@@ -6,15 +6,16 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:50 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/29 16:11:23 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 11:32:03 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	printstring(char*s)
+int	printstring(t_format *fmt, char*s)
 {
 	int	i;
+	(void)fmt;
 
 	if (!s)
 	{
@@ -23,6 +24,6 @@ int	printstring(char*s)
 	}
 	i = 0;
 	while (s[i])
-		write(1, &s[i++], 1);
+		printchar(fmt, s[i++]);
 	return (lenstring(s));
 }

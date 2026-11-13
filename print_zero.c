@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 15:22:26 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/10 22:29:43 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 11:38:39 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ static int	print_positive_padded(t_format *fmt, int len, long n)
 	if (fmt->plus && fmt->zero == 0 && fmt->width > len)
 	{
 		ft_call(skip, ' ');
-		count += printchar('+');
+		count += printchar(fmt, '+');
 	}
 	else
 	{
 		if ((fmt->plus && fmt->zero == 0) || (fmt->plus && fmt->zero))
-			count += printchar('+');
+			count += printchar(fmt, '+');
 		ft_call(skip, '0');
 	}
-	printdecimal(n);
+	printdecimal(fmt, n);
 	return (skip + len + count);
 }
 
@@ -52,14 +52,14 @@ static int	print_negative_padded(t_format *fmt, int len, long tmp)
 	if (fmt->plus && fmt->zero == 0 && fmt->width > len - 1)
 	{
 		ft_call(skip, ' ');
-		count += printchar('-');
+		count += printchar(fmt, '-');
 	}
 	else
 	{
-		count += printchar('-');
+		count += printchar(fmt, '-');
 		ft_call(skip, '0');
 	}
-	printdecimal(tmp);
+	printdecimal(fmt, tmp);
 	return (skip + len + count);
 }
 
@@ -69,18 +69,18 @@ static int	handle_plus_flag(t_format *fmt, int len_number, long n, long tmp)
 
 	count = 0;
 	if (n >= 0 && fmt->plus && fmt->width > len_number)
-		count += ft_print_zeroo(fmt, len_number, n);
+		count += print_positive_padded(fmt, len_number, n);
 	else if (n < 0 && fmt-> plus && fmt->width > len_number - 1)
-		count += ft_add_minus(fmt, len_number, tmp);
+		count += print_negative_padded(fmt, len_number, tmp);
 	else
 	{
 		if (n >= 0)
 		{
-			count += printchar('+');
-			count += printdecimal(n);
+			count += printchar(fmt, '+');
+			count += printdecimal(fmt, n);
 		}
 		else
-			count += printdecimal(n);
+			count += printdecimal(fmt, n);
 	}
 	return (count);
 }
@@ -91,11 +91,11 @@ static int	handle_zero_flag(t_format *fmt, int len_number, long n, long tmp)
 
 	count = 0;
 	if (n >= 0 && fmt->width > len_number)
-		count += ft_print_zeroo(fmt, len_number, n);
+		count += print_positive_padded(fmt, len_number, n);
 	else if (n < 0 && fmt->width > len_number + 1)
-		count += ft_add_minus(fmt, len_number, tmp);
+		count += print_negative_padded(fmt, len_number, tmp);
 	else
-		count += printdecimal(n);
+		count += printdecimal(fmt, n);
 	return (count);
 }
 
@@ -116,9 +116,9 @@ int	ft_ze_pl(t_format *fmt, long n)
 	if (fmt->zero || fmt->plus)
 	{
 		if (fmt->plus)
-			count += print_plus(fmt, len_number, n, tmp);
+			count += handle_plus_flag(fmt, len_number, n, tmp);
 		else
-			count += print_zero(fmt, len_number, n, tmp);
+			count += handle_zero_flag(fmt, len_number, n, tmp);
 	}
 	return (count);
 }

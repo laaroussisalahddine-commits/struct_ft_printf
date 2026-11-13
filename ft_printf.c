@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 18:42:17 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/10 21:30:56 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 11:35:15 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	flags(const char *str, int *i, t_format *fmt)
 void	parse_format(const char *str, int *i, t_format *fmt)
 {
 	initial_format(fmt);
-	Flags(str, i, fmt);
+	flags(str, i, fmt);
 	while (str[*i] >= '0' && str[*i] <= '9')
 		fmt->width = fmt->width * 10 + (str[(*i)++] - '0');
 	if (str[*i] == '.')
@@ -53,21 +53,21 @@ int	print_format(va_list args, t_format *fmt, int *i)
 
 	count = 0;
 	if (fmt->specifier == 'c')
-		count += printchar(va_arg(args, int));
+		count += printchar(fmt, va_arg(args, int));
 	else if (fmt->specifier == 's')
-		count += printstring(va_arg(args, char *));
+		count += printstring(fmt, va_arg(args, char *));
 	else if (fmt->specifier == 'd' || fmt->specifier == 'i')
-		count += printdecimal(va_arg(args, int));
+		count += printdecimal(fmt, va_arg(args, int));
 	else if (fmt->specifier == 'x')
-		count += printhex(va_arg(args, unsigned int), 0);
+		count += printhex(fmt, va_arg(args, unsigned int), 0);
 	else if (fmt->specifier == 'X')
-		count += printhex(va_arg(args, unsigned int), 1);
+		count += printhex(fmt, va_arg(args, unsigned int), 1);
 	else if (fmt->specifier == 'p')
-		count += printptr(va_arg(args, void *));
+		count += printptr(fmt, va_arg(args, void *));
 	else if (fmt->specifier == 'u')
-		count += printuns(va_arg(args, unsigned int));
+		count += printuns(fmt, va_arg(args, unsigned int));
 	else if (fmt->specifier == '%')
-		count += printchar('%');
+		count += printchar(fmt, '%');
 	(*i)++;
 	return (count);
 }
@@ -88,11 +88,11 @@ int	ft_printf(const char *str, ...)
 	{
 		initial_format(&fmt);
 		while (str[i] && str[i] != '%')
-			count += printchar(str[i++]);
+			count += printchar(&fmt, str[i++]);
 		if (str[i] == '%')
 		{
 			i++;
-			while (is_flags(&fmt) || ft_isdigits(str[i]))
+			while (is_flags(str[i]) || ft_isdigit(str[i]))
 				parse_format(str, &i, &fmt);
 			count += print_format(args, &fmt, &i);
 		}
