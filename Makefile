@@ -4,9 +4,8 @@ FLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f 
 
-SRC = lenstring.c lennumber.c lennumhex.c \
-	printchar.c printstring.c printdecimal.c  printhex.c \
-	printptr.c printuns.c ft_printf.c \
+SRC = printchar.c printstring.c printdecimal.c  printhex.c \
+	printptr.c printuns.c ft_printf.c lenght.c \
 	print_padding.c print_zero.c ft_printf_utils.c
 
 OBJ = $(SRC:.c=.o)
