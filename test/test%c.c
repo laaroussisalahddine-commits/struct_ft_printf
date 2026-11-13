@@ -1,46 +1,102 @@
-
 #include <stdio.h>
 #include "ft_printf.h"
 
-#define TEST(fmt, c) do {                                      \
-    int expected;                                              \
-    int actual;                                                \
-    printf("\nTEST: " fmt " | char=%d\n", (int)(c));            \
-    printf("Expected: |");                                     \
-    fflush(stdout);                                            \
-    expected = printf(fmt, c);                                 \
-    printf("|\n");                                             \
-    printf("Actual:   |");                                     \
-    fflush(stdout);                                            \
-    actual = ft_printf(fmt, c);                                \
-    printf("|\n");                                             \
-    printf("Return: expected=%d, actual=%d -> %s\n",            \
-        expected, actual,                                      \
-        expected == actual ? "PASS (length)" : "FAIL");          \
-} while (0)
-
 int main(void)
 {
-    // Basic
-    TEST("%c", 'A');
-    TEST("%c", '0');
-    TEST("%c", ' ');
-    TEST("%c", '\0');
+    printf("\n========== BASIC %%c ==========\n");
 
-    // Width
-    TEST("%5c", 'A');
-    TEST("%10c", 'Z');
-    TEST("%1c", 'B');
-    TEST("%0c", 'C');
+    printf("Original: |%c|\n", 'A');
+    fflush(stdout);
+    ft_printf("Mine:     |%c|\n", 'A');
 
-    // Minus flag
-    TEST("%-5c", 'A');
-    TEST("%-10c", 'Z');
-    TEST("%-1c", 'B');
-    TEST("%-0c", 'C');
+    printf("Original: |%c|\n", '0');
+    fflush(stdout);
+    ft_printf("Mine:     |%c|\n", '0');
 
-    // Dynamic width
-    TEST("%*c", 'A'); // Remove: requires two arguments
+    printf("Original: |%c|\n", ' ');
+    fflush(stdout);
+    ft_printf("Mine:     |%c|\n", ' ');
+
+    printf("Original: |%c|\n", '\0');
+    fflush(stdout);
+    ft_printf("Mine:     |%c|\n", '\0');
+
+    printf("Original: |%c|\n", '\n');
+    fflush(stdout);
+    ft_printf("Mine:     |%c|\n", '\n');
+
+    printf("\n========== WIDTH ==========\n");
+    fflush(stdout);
+
+    printf("Original: |%1c|\n", 'A');
+    fflush(stdout);
+    ft_printf("Mine:     |%1c|\n", 'A');
+
+    printf("Original: |%5c|\n", 'A');
+    fflush(stdout);
+    ft_printf("Mine:     |%5c|\n", 'A');
+
+    printf("Original: |%10c|\n", 'Z');
+    fflush(stdout);
+    ft_printf("Mine:     |%10c|\n", 'Z');
+
+    printf("Original: |%20c|\n", 'B');
+    fflush(stdout);
+    ft_printf("Mine:     |%20c|\n", 'B');
+
+    printf("Original: |%5c|\n", '\0');
+    fflush(stdout);
+    ft_printf("Mine:     |%5c|\n", '\0');
+
+    printf("\n========== MINUS FLAG ==========\n");
+    fflush(stdout);
+
+    printf("Original: |%-1c|\n", 'A');
+    fflush(stdout);
+    ft_printf("Mine:     |%-1c|\n", 'A');
+
+    printf("Original: |%-5c|\n", 'A');
+    fflush(stdout);
+    ft_printf("Mine:     |%-5c|\n", 'A');
+
+    printf("Original: |%-10c|\n", 'Z');
+    fflush(stdout);
+    ft_printf("Mine:     |%-10c|\n", 'Z');
+
+    printf("Original: |%-20c|\n", 'B');
+    fflush(stdout);
+    ft_printf("Mine:     |%-20c|\n", 'B');
+
+    printf("Original: |%-5c|\n", '\0');
+    fflush(stdout);
+    ft_printf("Mine:     |%-5c|\n", '\0');
+
+    printf("Original: |%-10c|\n", ' ');
+    fflush(stdout);
+    ft_printf("Mine:     |%-10c|\n", ' ');
+
+    printf("\n========== EDGE CASES ==========\n");
+    fflush(stdout);
+
+    printf("Original: |%-100c|\n", 'Z');
+    fflush(stdout);
+    ft_printf("Mine:     |%-100c|\n", 'Z');
+
+    printf("Original: |%100c|\n", 'Z');
+    fflush(stdout);
+    ft_printf("Mine:     |%100c|\n", 'Z');
+
+    printf("\n========== RETURN VALUES ==========\n");
+    fflush(stdout);
+
+    int original = printf("%-5c", 'A');
+    fflush(stdout);
+    printf("\nOriginal return: %d\n", original);
+    fflush(stdout);
+
+    int mine = ft_printf("%-5c", 'A');
+    printf("\nMine return:     %d\n", mine);
+    fflush(stdout);
 
     return (0);
 }
