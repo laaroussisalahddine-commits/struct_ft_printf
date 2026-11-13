@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    printf("|%%5s| :|%5c|\n", 'A');
+    printf("|%%5s| :|%100s|\n", "hello world");
     printf("|%%-8s| :|%-8s|\n", "A");
     // printf("|%-6d|\n", 42);
     // printf("|%-6i|\n", -42);

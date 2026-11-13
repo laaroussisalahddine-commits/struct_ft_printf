@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 15:22:26 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/13 11:38:39 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 13:04:59 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static int	print_positive_padded(t_format *fmt, int len, long n)
 	count = 0;
 	if (fmt->plus && fmt->zero == 0 && fmt->width > len)
 	{
-		ft_call(skip, ' ');
+		ft_strset(skip, ' ');
 		count += printchar(fmt, '+');
 	}
 	else
 	{
 		if ((fmt->plus && fmt->zero == 0) || (fmt->plus && fmt->zero))
 			count += printchar(fmt, '+');
-		ft_call(skip, '0');
+		ft_strset(skip, '0');
 	}
 	printdecimal(fmt, n);
 	return (skip + len + count);
@@ -51,13 +51,13 @@ static int	print_negative_padded(t_format *fmt, int len, long tmp)
 		skip = fmt->width - len - 1;
 	if (fmt->plus && fmt->zero == 0 && fmt->width > len - 1)
 	{
-		ft_call(skip, ' ');
+		ft_strset(skip, ' ');
 		count += printchar(fmt, '-');
 	}
 	else
 	{
 		count += printchar(fmt, '-');
-		ft_call(skip, '0');
+		ft_strset(skip, '0');
 	}
 	printdecimal(fmt, tmp);
 	return (skip + len + count);

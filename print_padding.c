@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 14:13:11 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/13 11:36:03 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 13:04:34 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	print_padding(t_format *fmt, long n)
 	if (fmt->width > len_number && !fmt->minus)
 	{
 		skip = fmt-> width - len_number;
-		ft_call(skip, ' ');
+		ft_strset(skip, ' ');
 		printdecimal(fmt, n);
 	}
 	else if (fmt->width > len_number && fmt->minus)
 	{
 		skip = fmt-> width - len_number;
 		printdecimal(fmt, n);
-		ft_call(skip, ' ');
+		ft_strset(skip, ' ');
 	}
 	else
 		printdecimal(fmt, n);

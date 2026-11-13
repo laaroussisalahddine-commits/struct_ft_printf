@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:04 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/13 11:35:02 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 16:31:51 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				printhex(t_format *fmt, unsigned int n, int upper);
 int				printptr(t_format *fmt, void *ptr);
 
 /* count number */
-unsigned int	lennumhex(unsigned long n);
+int				lennumhex(unsigned long n);
 int				lenstring(char *s);
 int				lennumber(long n);
 
@@ -54,7 +54,9 @@ int				ft_ze_pl(t_format *fmt, long n);
 int				is_flags(char c);
 int				is_specifier(char s);
 void			initial_format(t_format *fmt);
-void			ft_call(int len, char c);
+void			ft_strset(int len, char c);
 int				ft_isdigit(int c);
+void			print_lower_hex(t_format *fmt, unsigned long n);
+int				ft_puts(t_format *fmt, char *s);
 
 #endif

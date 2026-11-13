@@ -29,5 +29,5 @@ fclean : clean
 re : fclean all
 
 run : re
-	$(CC) $(FLAGS) test%c.c libftprintf.a
+	$(CC) $(FLAGS) test%p.c libftprintf.a
 	@$(MAKE) --no-print-directory -s clean

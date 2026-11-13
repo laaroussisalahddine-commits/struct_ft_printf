@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 12:48:50 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/13 12:49:20 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/13 14:19:07 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	lennumber(long n)
 	return (count);
 }
 
-unsigned int	lennumhex(unsigned long n)
+int	lennumhex(unsigned long n)
 {
 	int	count;
 
