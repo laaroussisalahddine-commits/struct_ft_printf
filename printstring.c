@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:50 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/13 13:43:31 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/17 15:44:26 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	printstring(t_format *fmt, char* s)
 	}
 	count = 0;
 	skip = 0;
+	if (fmt->width == lenstring(s))
+		return (ft_puts(fmt, s));
 	if (fmt->minus || fmt->width)
 	{
 		if (fmt->width > lenstring(s))

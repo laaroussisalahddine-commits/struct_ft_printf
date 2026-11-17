@@ -12,6 +12,10 @@ OBJ = $(SRC:.c=.o)
 
 .PHONY : all clean fclean re
 
+run : re
+	$(CC) $(FLAGS) main.c libftprintf.a
+	@$(MAKE) --no-print-directory -s clean
+
 all : $(NAME)
 
 $(NAME) : $(OBJ)
@@ -28,6 +32,3 @@ fclean : clean
 
 re : fclean all
 
-run : re
-	$(CC) $(FLAGS) test%u.c libftprintf.a
-	@$(MAKE) --no-print-directory -s clean
