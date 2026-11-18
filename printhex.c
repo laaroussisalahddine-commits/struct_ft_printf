@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:36:06 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/17 14:14:51 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/18 11:51:12 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,15 @@ int	printhex(t_format *fmt, unsigned int x, int upper)
 
 	n = x;
 	count = lennumhex(n);
-	if (fmt->hash && upper == 0)
+	if (fmt->hash)
 	{
 		if (n == 0)
 			return (printdecimal(fmt ,0));
 		count += printstring(fmt, "0x");
-		print_lower_hex(fmt, n);
+		if (upper == 0)
+			print_lower_hex(fmt, n);
+		else
+			print_upper_hex(fmt, n);
 		return (count);
 	}
 	if (!fmt->hash && upper == 1)
